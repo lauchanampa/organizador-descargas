@@ -1,4 +1,4 @@
-from organizer import obtener_carpeta_descargas, obtener_archivos
+from organizer import obtener_carpeta_descargas, obtener_archivos, crear_carpetas
 from file_classifier import obtener_categoria
 
 def main():
@@ -22,6 +22,16 @@ def main():
         categoria = obtener_categoria(archivo)
 
         print(f"{archivo.name} --> {categoria}")
+
+    print("\n")
+
+    categorias = set()
+
+    for archivo in archivos:
+        categoria = obtener_categoria(archivo)
+        categorias.add(categoria)  
+
+    crear_carpetas(carpeta_descargas, categorias)
 
 if __name__ == "__main__":
     main()    

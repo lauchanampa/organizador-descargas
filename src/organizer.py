@@ -19,4 +19,17 @@ def obtener_archivos(carpeta: Path) -> List[Path]:
             "el append es un add para el array"
             archivos.append(archivo)
 
-    return archivos        
+    return archivos   
+
+def crear_carpetas(carpeta_descargas: Path, categorias: set[str]):
+
+    for categoria in categorias:
+
+        carpeta_destino = carpeta_descargas / categoria
+
+        if not carpeta_destino.exists():
+
+            carpeta_destino.mkdir()
+
+            print(f"Carpeta '{categoria}' creada.")
+                
