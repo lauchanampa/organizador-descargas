@@ -32,4 +32,23 @@ def crear_carpetas(carpeta_descargas: Path, categorias: set[str]):
             carpeta_destino.mkdir()
 
             print(f"Carpeta '{categoria}' creada.")
+
+def mover_archivo(archivo: Path, categoria: str, carpeta_descargas: Path):
+    """
+    Mueve un archivo a la carpeta correspondiente según su categoría.
+    Si la carpeta no existe, la crea automáticamente.
+    """
+
+    carpeta_destino = carpeta_descargas / categoria
+
+    if not carpeta_destino.exists():
+        carpeta_destino.mkdir()
+        print(f"Carpeta '{categoria}' creada.")
+
+    nuevo_destino = carpeta_destino / archivo.name
+
+    archivo.rename(nuevo_destino)
+
+    print(f"'{archivo.name}' movido a '{categoria}'.")
+                
                 
