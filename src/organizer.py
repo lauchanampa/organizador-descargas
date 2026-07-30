@@ -45,10 +45,38 @@ def mover_archivo(archivo: Path, categoria: str, carpeta_descargas: Path):
         carpeta_destino.mkdir()
         print(f"Carpeta '{categoria}' creada.")
 
-    nuevo_destino = carpeta_destino / archivo.name
+    nuevo_destino = obtener_nombre_disponible(carpeta_destino, archivo)
 
     archivo.rename(nuevo_destino)
 
     print(f"'{archivo.name}' movido a '{categoria}'.")
+
+
+def obtener_nombre_disponible(carpeta_destino: Path, archivo: Path) -> Path:
+    """
+    Devuelve una ruta disponible para el archivo.
+    Si ya existe un archivo con el mismo nombre, agrega (1), (2), (3), etc.
+    """
+
+    nuevo_destino = carpeta_destino / archivo.name
+
+    if not nuevo_destino.exists():
+        return nuevo_destino
+
+    contador = 1
+    nombre_base = archivo.stem
+    extension = archivo.suffix
+
+    while True:
+
+        nuevo_nombre = f"{nombre_base} ({contador}){extension}"
+
+        nuevo_destino = carpeta_destino / nuevo_nombre
+
+        if not nuevo_destino.exists():
+            return nuevo_destino
+
+        contador += 1
+        
                 
                 

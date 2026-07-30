@@ -1,5 +1,6 @@
-from organizer import obtener_carpeta_descargas, obtener_archivos, crear_carpetas, mover_archivo
+from organizer import obtener_carpeta_descargas, obtener_archivos, crear_carpetas, mover_archivo, obtener_nombre_disponible
 from file_classifier import obtener_categoria
+from statistics import actualizar_estadisticas, mostrar_estadisticas
 
 def main():
     print("=== Organizador de Descargas ===\n")
@@ -26,6 +27,7 @@ def main():
     print("\n")
 
     categorias = set()
+    estadisticas = {}
 
     for archivo in archivos:
         categoria = obtener_categoria(archivo)
@@ -39,7 +41,11 @@ def main():
 
         categoria = obtener_categoria(archivo)
 
+        actualizar_estadisticas(estadisticas, categoria)
+
         mover_archivo(archivo, categoria, carpeta_descargas)
+
+    mostrar_estadisticas(estadisticas)    
 
 if __name__ == "__main__":
     main()    
